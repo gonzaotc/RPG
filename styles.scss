@@ -1,0 +1,125 @@
+body {
+    background-color: #212529;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    &__text {
+        color: red;
+    }
+}
+
+.interface {
+    &__screen {
+        display: flex;
+        width: 80vw;
+        min-width: 350px;
+        height: 70vh;
+        min-height: 250px;
+        border-radius: 2px;
+        background-color: black;
+        overflow-y: auto;
+
+        &__content {
+            color: white;
+            padding-left: 1rem;
+        }
+    }
+
+    &__healthbars {
+        color: white;
+        background-color: black;
+        // border: 2px solid green;
+        display: flex;
+        justify-content: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        .interface__healthbars__player {
+            .healthbar__player__text {
+            }
+            .healthbar__player__number {
+            }
+        }
+        .interface__healthbars__enemy {
+            .healthbar__enemy__text {
+            }
+            .healthbar__enemy__number {
+            }
+        }
+    }
+
+    &__errors {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        // border: 2px solid red;
+        height: 1.2rem;
+        padding-bottom: 0.2rem;
+    }
+
+    &__error {
+        color: red;
+        position: relative;
+    }
+
+    &__input__container {
+        border: 2px solid black;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.25rem 0;
+    }
+    &__input {
+        width: 60%;
+    }
+    &__button {
+    }
+    &__clear {
+    }
+}
+
+.hide {
+    display: none;
+}
+
+p {
+    font-size: 17.5px;
+}
+
+.grey {
+    color: grey;
+}
+.green {
+    color: lightgreen;
+}
+.yellow {
+    color: yellow;
+}
+.orange {
+    color: orange;
+}
+.red {
+    color: red;
+}
+.purple {
+    color: rgb(203, 47, 203);
+}
+
+.player{
+    color: orange;
+}
+
+.enemy{
+    color: grey;
+}
+
+.attacker{
+    color: red;
+}

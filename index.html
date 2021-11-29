@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG</title>
+    <link rel="stylesheet" href="sass/styles.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <section class="title">
+        <h3 class="title__text">RPG</h3>
+    </section>
+
+    <section class="interface">
+        <div class="interface__screen">
+            <div class="interface__screen__content">
+            </div>
+        </div>
+        <div class="interface__healthbars">
+            <div class="interface__healthbars__player">
+                <span class="healthbar__player__text">Health:</span>
+                <span class="healthbar__player__number">10/10</span>
+            </div>
+
+
+            <div class="interface__healthbars__enemy">
+                <span class="healthbar__enemy__text">Health:</span>
+                <span class="healthbar__enemy__number">10/10</span>
+            </div>
+        </div>
+        <div class="interface__errors">
+        </div>
+        <div class="interface__input__container">
+            <form action="">
+                <input type="text" class="interface__input" placeholder="enter a command..">
+                <button class="interface__button">enter</button>
+                <button class="interface__clear">clear</button>
+            </form>
+
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
