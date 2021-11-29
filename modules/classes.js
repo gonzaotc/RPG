@@ -11,12 +11,20 @@ export class Human {
         this.exp = 1;
     }
 
-    setDomElements(domHealth) {
+    setDomElements(domHealth, domPrint, domError) {
         this.domHealth = domHealth;
+        this.domPrint = domPrint;
+        this.domError = domError;
+    }
+
+    setFunctions(commandPrint, commandError, calculateDamage) {
+        this.commandPrint = commandPrint;
+        this.commandError = commandError;
+        this.calculateDamage = calculateDamage;
     }
 
     stats() {
-        return `<span class="orange">${this.name}</span> stats: str: ${this.str}, dex: ${this.dex}, def: ${this.def}, int: ${this.int} `;
+        return this.commandPrint(`<span class="orange">${this.name}</span> stats: str: ${this.str}, dex: ${this.dex}, def: ${this.def}, int: ${this.int}`, this.domPrint);
     }
     setHealth(newValue = this.health) {
         this.health = newValue;
@@ -24,16 +32,17 @@ export class Human {
         // $(".healthbar__player__number").effect("shake");
     }
     say(message) {
-        return `<span class="orange">${this.name}</span> says: ${message}`;
+        console.log(`${this.name} says: ${message}`)
+        return this.commandPrint(`<span class="orange">${this.name}</span> says: ${message}`, this.domPrint);
     }
-    attack(objetive = "air", player, enemy, calculateDamage, commandError) {
+    attack(objetive = "air", player, enemy) {
         if (objetive === "enemy") {
-            console.log(`${enemy.name} got attacked`);
-            return calculateDamage("str", player, enemy);
-        } else return commandError(`${objetive} no es un objetivo valido.`, domError);
+            console.log(`${enemy.name} got attacked by ${this.name}`);
+            return this.commandPrint(this.calculateDamage("str", player, enemy), this.domPrint);
+        } else return this.commandError(`${objetive} no es un objetivo valido.`, this.domError);
     }
     help() {
-        return `Commands: help, say, stats, attack<br>Usage: 'command' 'action' `;
+        return this.commandPrint(`Commands: help, say, stats, attack<br>Usage: 'command' 'action' `, this.domPrint);
     }
 }
 
@@ -48,14 +57,21 @@ export class Enemy {
         this.int = int;
     }
 
-    setDomElements(domHealth) {
+    setDomElements(domHealth, domPrint) {
         this.domHealth = domHealth;
+        this.domPrint = domPrint;
+    }
+
+    setFunctions(commandPrint, commandError, calculateDamage) {
+        this.commandPrint = commandPrint;
+        this.commandError = commandError;
+        this.calculateDamage = calculateDamage;
     }
 
     stats() {
-        return commandPrint(
+        return this.commandPrint(
             `<span class="grey">${this.name}</span> stats: maxhth: ${this.maxhealth}, str: ${this.str}, dex: ${this.dex}, def: ${this.def}, int: ${this.int}`,
-            domPrint
+            this.domPrint
         );
     }
 
@@ -66,13 +82,14 @@ export class Enemy {
     }
 
     say(message) {
-        return commandPrint(`<span class="grey">${this.name}</span> says: ${message}`, domPrint);
+        console.log(`${this.name} says: ${message}`);
+        return this.commandPrint(`<span class="grey">${this.name}</span> says: ${message}`, this.domPrint);
     }
 
-    attack(objetive = "air", player, enemy, calculateDamage, commandError) {
+    attack(objetive = "air", player, enemy) {
         if (objetive === "player") {
-            console.log(`${objetive} got attacked`);
-            return commandPrint(calculateDamage("str", enemy, player), domPrint);
+            console.log(`${objetive} got attacked by ${this.name}`);
+            return this.commandPrint(this.calculateDamage("str", enemy, player), this.domPrint);
         } else return console.log(`${objetive} no es un objetivo valido`);
     }
 }

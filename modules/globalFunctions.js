@@ -7,16 +7,16 @@ function processPlayerCommand(player, enemy, entry, domPrint, domError) {
         return clearScreen(domPrint);
     }
     if (command === "help") {
-        return commandPrint(player.help(), domPrint);
+        return player.help();
     }
     if (command === "stats") {
-        return commandPrint(player.stats(), domPrint);
+        return player.stats();
     }
     if (command === "say") {
         return commandPrint(player.say(action), domPrint);
     }
     if (command === "attack") {
-        return commandPrint(player.attack(entry[1], player, enemy, calculateDamage, commandError), domPrint);
+        return player.attack(entry[1], player, enemy);
     }
 
     return commandError(`"${command}" no es un comando válido.`, domError);
@@ -32,10 +32,9 @@ function commandPrint(result, domPrint) {
     }
     let screen = domPrint.parentElement;
     screen.scrollTop = screen.scrollHeight - screen.clientHeight;
-    console.log(domPrint.parentElement.scrollTop); // Que tanto se desplazó
-    console.log(domPrint.parentElement.scrollHeight); // Su altura incluyendo lo que no es visible en pantalla
-    console.log(domPrint.parentElement.clientHeight); // La altura del elemento que se está viendo.
-    // console.log(domPrint.scrollHeight);
+    // console.log(domPrint.parentElement.scrollTop); // Que tanto se desplazó
+    // console.log(domPrint.parentElement.scrollHeight); // Su altura incluyendo lo que no es visible en pantalla
+    // console.log(domPrint.parentElement.clientHeight); // La altura del elemento que se está viendo.
 }
 
 function commandError(errorText, domError) {

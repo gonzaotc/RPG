@@ -37,12 +37,20 @@ clear.addEventListener("click", e => {
 });
 
 let player = new Human("Razmuth");
-player.say('hola');
 console.log(player);
-player.setDomElements(player__health);
+player.setDomElements(player__health, screen__content, errors__content);
+player.setFunctions(commandPrint, commandError, calculateDamage);
 player.setHealth();
 
 let enemy = new Enemy("Skeleton", 10, 10, 1, 1, 1, 1);
-enemy.setDomElements(enemy__health);
+console.log(enemy);
+enemy.setDomElements(enemy__health, screen__content);
+enemy.setFunctions(commandPrint, commandError, calculateDamage)
 enemy.setHealth();
 
+
+player.say('Vas a cagar fuego');
+player.attack('enemy', player, enemy);
+
+enemy.say('Ahora te toca a vos gil')
+enemy.attack('player', player, enemy);
