@@ -49,8 +49,8 @@ enemy.setFunctions(commandPrint, commandError, calculateDamage)
 enemy.setHealth();
 
 
-player.say('Vas a cagar fuego');
-player.attack('enemy', player, enemy);
+// player.say('Vas a cagar fuego');
+// player.attack('enemy', player, enemy);
 
-enemy.say('Ahora te toca a vos gil')
-enemy.attack('player', player, enemy);
+// enemy.say('Ahora te toca a vos gil')
+// enemy.attack('player', player, enemy);
