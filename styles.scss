@@ -32,16 +32,29 @@ body {
     &__healthbars {
         color: white;
         background-color: black;
-        // border: 2px solid green;
+        // border: 2px solid brown;
         display: flex;
         justify-content: row;
         align-items: center;
         justify-content: space-between;
         padding: 0 1rem;
+        padding-top: 1rem;
         .interface__healthbars__player {
             .healthbar__player__text {
             }
             .healthbar__player__number {
+            }
+        }
+
+        .interface__buttons{
+            &__attack{
+                border: none;
+                background: none;
+                color: white;
+                &:hover{
+                    color: orange;
+                    cursor: pointer;
+                }
             }
         }
         .interface__healthbars__enemy {
@@ -93,6 +106,9 @@ p {
     font-size: 17.5px;
 }
 
+.white {
+    color: white;
+}
 .grey {
     color: grey;
 }
@@ -112,14 +128,10 @@ p {
     color: rgb(203, 47, 203);
 }
 
+
 .player{
     color: orange;
 }
-
 .enemy{
     color: grey;
-}
-
-.attacker{
-    color: red;
 }

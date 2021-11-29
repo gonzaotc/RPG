@@ -1,7 +1,11 @@
-function processPlayerCommand(player, enemy, entry, domPrint, domError) {
+function processPlayerCommand(player, enemy, entry, domPrint, domError, startGame) {
     entry = entry.split(" ");
     let command = entry[0];
     let action = entry.slice(1).join(" ");
+
+    if (domPrint.children.length === 3) {
+        startGame();
+     }
 
     if (command === "clear") {
         return clearScreen(domPrint);
@@ -12,8 +16,11 @@ function processPlayerCommand(player, enemy, entry, domPrint, domError) {
     if (command === "stats") {
         return player.stats();
     }
+    if (command == "enemy") {
+        return enemy.stats();
+     }
     if (command === "say") {
-        return commandPrint(player.say(action), domPrint);
+        return player.say(action);
     }
     if (command === "attack") {
         return player.attack(entry[1], player, enemy);
@@ -81,10 +88,10 @@ function attackColor(number) {
 }
 
 function attackString(atribute, attacker, defender, attackDice, defenseDice) {
-    return `<span class="${attacker}">${attacker.name}</span> [${attackColor(attackDice)}]+${attackColor(
+    return `<span class="${attacker.color}">${attacker.name}</span> [${attackColor(attackDice)}]+${attackColor(
         attacker[atribute]
     )} attacks
-            <span class="${defender}">${defender.name}</span> [${attackColor(defenseDice)}]+${attackColor(
+            <span class="${defender.color}">${defender.name}</span> [${attackColor(defenseDice)}]+${attackColor(
         defender.dex
     )} `;
 }
@@ -102,7 +109,8 @@ function calculateDamage(atribute, attacker, defender) {
     // Intento de ataque.
     let hit = attack - defense;
 
-    let damage = Math.round(hit / 3 + attacker[atribute] - defender.def);
+    let damage = Math.round(hit/3 + attacker[atribute] - defender.def);
+    if (damage < 0) damage = 0;
 
     console.log(`hit: ${hit}`);
 
@@ -118,18 +126,18 @@ function calculateDamage(atribute, attacker, defender) {
         attacker.setHealth(attacker.health - damage);
         return `${attackString(atribute, attacker, defender, attackDice, defenseDice)} <br> 
         <span class="yellow">CRITICAL HIT!</span> \n
-        ${damage} damage produced to ${defender.name}`;
+        ${damage} damage done to ${defender.name}`;
     }
     if (attackDice === 20 && defenseDice == 20) {
         damage = damage * 1.5;
         attacker.setHealth(attacker.health - damage);
         return `${attackString(atribute, attacker, defender, attackDice, defenseDice)} <br> 
         <span class="yellow">Critical!</span> , <span class="purple">Perfect defense!<br>
-        ${damage} damage produced to ${defender.name}`;
+        ${damage} damage done to ${defender.name}`;
     }
     // Si el hit es menor a 10 o la def saca 20 natural => contra ataque
     if (defenseDice === 20 || -10 >= hit) {
-        console.log("Counter attacked");
+        console.log(`${defender.name} contra-attacks ${attacker.name}`);
         if (defenseDice === 20) {
             return `${attackString(atribute, attacker, defender, attackDice, defenseDice)} <br>
          <span class="purple">Perfect defense!</span> Counter Attacked! <br>
@@ -143,7 +151,7 @@ function calculateDamage(atribute, attacker, defender) {
     if (hit > 0) {
         defender.setHealth(defender.health - damage);
         return `${attackString(atribute, attacker, defender, attackDice, defenseDice)} <br>
-        ${damage} damage produced to ${defender.name}`;
+        ${damage} damage done to ${defender.name}`;
     }
     // Si el hit es menor a cero, se esquiva el ataque.
     if (0 >= hit && hit > -10) {
